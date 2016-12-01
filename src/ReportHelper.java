@@ -54,10 +54,8 @@ public class ReportHelper {
 			SimpleWriterExporterOutput exporterOutput = new SimpleWriterExporterOutput(file);
 			exporter.setExporterOutput(exporterOutput);
 			SimpleTextReportConfiguration configuration = new SimpleTextReportConfiguration();
-			configuration.setCharWidth(10.238f);
+			configuration.setCharWidth(3.96f);
 			configuration.setCharHeight(13.948f);
-//			configuration.setPageWidthInChars(100);
-//			configuration.setPageHeightInChars(1000);
 			exporter.setConfiguration(configuration);
 
 			exporter.exportReport();
