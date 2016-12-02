@@ -37,7 +37,7 @@ import net.sf.jasperreports.engine.JRScriptletException;
 /**
  * @author Ariel Landaida (landaida.1@gmail.com)
  */
-public class EstadoAvancePresupuestalEgresosFuenteFinanciamiento extends JRDefaultScriptlet
+public class EstadoAvancePresupuestalEgresosDgDaFunProgProyFfScriptlet extends JRDefaultScriptlet
 {
 	@Override
 	public void afterGroupInit(String groupName) throws JRScriptletException
