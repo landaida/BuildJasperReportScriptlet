@@ -34,11 +34,10 @@ import java.util.Objects;
 import net.sf.jasperreports.engine.JRDefaultScriptlet;
 import net.sf.jasperreports.engine.JRScriptletException;
 
-
 /**
  * @author Ariel Landaida (landaida.1@gmail.com)
  */
-public class EstadoAvancePresupuestalEgresosFinalidadFuncionProgramaProyectoFfScriptlet extends JRDefaultScriptlet
+public class EstadoAvancePresupuestalEgresosFuenteFinanciamiento extends JRDefaultScriptlet
 {
 	@Override
 	public void afterGroupInit(String groupName) throws JRScriptletException

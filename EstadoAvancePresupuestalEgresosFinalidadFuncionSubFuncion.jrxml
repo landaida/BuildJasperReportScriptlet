@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
-<!-- 2016-12-02T12:02:13 -->
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-12-02T09:33:06 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Capital_de_trabajo" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="792" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="94a9e52e-7229-46b2-9151-d67a6d4593c1">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="gemdb"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
-	<scriptlet name="custom" class="com.gem.sistema.web.scriptlet.EstadoAvancePresupuestalEgresosFinalidadFuncionProgramaProyectoFfScriptlet">
+	<scriptlet name="custom" class="com.gem.sistema.web.scriptlet.EstadoAvancePresupuestalEgresosFinalidadFuncionSubFuncionScriptlet">
 		<scriptletDescription><![CDATA[]]></scriptletDescription>
 	</scriptlet>
 	<parameter name="P_MES" class="java.lang.Integer" isForPrompting="false">
@@ -28,7 +28,7 @@
 	<queryString>
 		<![CDATA[SELECT 
  PASO.PARTIDA
-,MAX(XCATPRO.NOMPRO) NOMPRO
+,MAX(CATDEP.NOMDEP) NOMDEP
 ,MAX(NATGAS.NOMGAS) NOMGAS 
 ,MAX(FIRMAS.L1) L1
 ,MAX(FIRMAS.L2) L2
@@ -51,26 +51,26 @@
 ,SUM(REDU1_7) REDU1_7,SUM(REDU1_8) REDU1_8,SUM(REDU1_9) REDU1_9,SUM(REDU1_10) REDU1_10,SUM(REDU1_11) REDU1_11,SUM(REDU1_12) REDU1_12
 ,SUM(COMPRO1_1) COMPRO1_1,SUM(COMPRO1_2) COMPRO1_2,SUM(COMPRO1_3) COMPRO1_3,SUM(COMPRO1_4) COMPRO1_4,SUM(COMPRO1_5) COMPRO1_5,SUM(COMPRO1_6) COMPRO1_6
 ,SUM(COMPRO1_7) COMPRO1_7,SUM(COMPRO1_8) COMPRO1_8,SUM(COMPRO1_9) COMPRO1_9,SUM(COMPRO1_10) COMPRO1_10,SUM(COMPRO1_11) COMPRO1_11,SUM(COMPRO1_12) COMPRO1_12
-
 FROM PASO
 ,NATGAS
-,XCATPRO
+,CATDEP
 ,FIRMAS
 WHERE PASO.PARTIDA = NATGAS.CLVGAS
-AND PASO.CLAVE = XCATPRO.CLVDEP
 AND PASO.IDSECTOR = NATGAS.IDSECTOR
 AND PASO.IDSECTOR = $P{P_SECTOR}
-AND PASO.PROGRAMA = XCATPRO.CLVFUN||XCATPRO.CLVFIN
+AND PASO.CLAVE = CATDEP.CLVDEP
 AND FIRMAS.ID =   $P{P_SECTOR}
-AND PASO.PROGRAMA =  $P{P_DIRE}
 AND NATGAS.FECCAP BETWEEN  DATE(TIMESTAMP_FORMAT('01-01-'|| (YEAR(CURRENT_DATE)- $P{P_RESTA_ANO} ),'DD-MM-YYYY'))
 AND DATE(TIMESTAMP_FORMAT(DAY(LAST_DAY(YEAR(CURRENT_DATE)||'-'|| '12' ||'-01'))|| '12' ||'-'|| (YEAR(CURRENT_DATE)-$P{P_RESTA_ANO} ),'DD-MM-YYYY'))
+AND SUBSTR(PASO.PROGRAMA,1,2) = SUBSTR($P{P_DIRE},1,2)
+AND SUBSTR(PASO.PROGRAMA,3,2) = SUBSTR($P{P_DIRE},3,2)
+AND SUBSTR(PASO.PROGRAMA,5,2) = SUBSTR($P{P_DIRE},5,2)
 AND PASO.PARTIDA IN (1100, 2611)
 GROUP BY PASO.PARTIDA
 --LIMIT 2]]>
 	</queryString>
 	<field name="PARTIDA" class="java.lang.String"/>
-	<field name="NOMPRO" class="java.lang.String"/>
+	<field name="NOMDEP" class="java.lang.String"/>
 	<field name="NOMGAS" class="java.lang.String"/>
 	<field name="L1" class="java.lang.String"/>
 	<field name="L2" class="java.lang.String"/>
@@ -209,6 +209,7 @@ GROUP BY PASO.PARTIDA
 		<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 	</variable>
 	<variable name="total_ampliacion" class="java.math.BigDecimal" calculation="System">
+		<variableExpression><![CDATA[$V{ampliacion}]]></variableExpression>
 		<initialValueExpression><![CDATA[BigDecimal.ZERO]]></initialValueExpression>
 	</variable>
 	<variable name="total_reduccion" class="java.math.BigDecimal" calculation="System">
@@ -319,7 +320,7 @@ GROUP BY PASO.PARTIDA
 				<textElement textAlignment="Center">
 					<font fontName="Consolas"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Funcion/SubFuncion/ Programa/Proyecto/Ff: " + $P{P_DIRE} +", " + $F{NOMPRO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Finalidad/Funcion/Subfuncion: " + $P{P_DIRE} +", " + $F{NOMDEP}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="0" y="14" width="792" height="14" uuid="becd8540-68b8-4bf3-9ef1-8bd1457d872c">
