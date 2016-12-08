@@ -8,20 +8,20 @@
 	<scriptlet name="custom" class="com.gem.sistema.web.scriptlet.EstadoAvancePresupuestalEgresosFinalidadFuncionProgramaProyectoFfScriptlet">
 		<scriptletDescription><![CDATA[]]></scriptletDescription>
 	</scriptlet>
-	<parameter name="P_MES" class="java.lang.Integer" isForPrompting="false">
+	<parameter name="P_MES" class="java.lang.Integer" isForPrompting="true">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[12]]></defaultValueExpression>
 	</parameter>
-	<parameter name="P_SECTOR" class="java.lang.Integer" isForPrompting="false">
+	<parameter name="P_SECTOR" class="java.lang.Integer" isForPrompting="true">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
 	</parameter>
-	<parameter name="P_RESTA_ANO" class="java.lang.Integer" isForPrompting="false">
+	<parameter name="P_RESTA_ANO" class="java.lang.Integer" isForPrompting="true">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[4]]></defaultValueExpression>
 	</parameter>
-	<parameter name="P_IMG" class="java.lang.String" isForPrompting="false"/>
-	<parameter name="P_DIRE" class="java.lang.String" isForPrompting="false">
+	<parameter name="P_IMG" class="java.lang.String" isForPrompting="true"/>
+	<parameter name="P_DIRE" class="java.lang.String" isForPrompting="true">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA["010301010101041"]]></defaultValueExpression>
 	</parameter>
@@ -64,8 +64,8 @@ AND PASO.PROGRAMA = XCATPRO.CLVFUN||XCATPRO.CLVFIN
 AND FIRMAS.ID =   $P{P_SECTOR}
 AND PASO.PROGRAMA =  $P{P_DIRE}
 AND NATGAS.FECCAP BETWEEN  DATE(TIMESTAMP_FORMAT('01-01-'|| (YEAR(CURRENT_DATE)- $P{P_RESTA_ANO} ),'DD-MM-YYYY'))
-AND DATE(TIMESTAMP_FORMAT(DAY(LAST_DAY(YEAR(CURRENT_DATE)||'-'|| '12' ||'-01'))|| '12' ||'-'|| (YEAR(CURRENT_DATE)-$P{P_RESTA_ANO} ),'DD-MM-YYYY'))
-AND PASO.PARTIDA IN (1100, 2611)
+AND DATE(TIMESTAMP_FORMAT(DAY(LAST_DAY(YEAR(CURRENT_DATE)||'-'|| $P{P_MES} ||'-01'))|| $P{P_MES} ||'-'|| (YEAR(CURRENT_DATE)-$P{P_RESTA_ANO} ),'DD-MM-YYYY'))
+--AND PASO.PARTIDA IN (1100, 2611)
 GROUP BY PASO.PARTIDA
 --LIMIT 2]]>
 	</queryString>

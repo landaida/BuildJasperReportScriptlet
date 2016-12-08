@@ -13,9 +13,9 @@ public class Main {
 		
 		
 		
-//		paramters.put("P_DIRE", "010301010101041");
+		paramters.put("P_DIRE", "010301010101041");
 //		ReportHelper.exportTXT("EstadoAvancePresupuestalEgresosFinalidadFuncionProgramaProyectoFf", paramters);
-//		ReportHelper.exportTXT("EstadoAvancePresupuestalEgresosFinalidadFuncionSubFuncion", null);
+		ReportHelper.exportTXT("EstadoAvancePresupuestalEgresosFinalidadFuncionSubFuncion", null);
 
 		
 		
@@ -24,8 +24,8 @@ public class Main {
 //		ReportHelper.exportTXT("EstadoAvancePresupuestalEgresosDgDaFunProgProyFf", paramters);
 		
 		
-		paramters.put("P_DIRE", "020");
-		ReportHelper.exportTXT("EstadoAvancePresupuestalEgresosFuenteFinanciamiento", paramters);
+//		paramters.put("P_DIRE", "020");
+//		ReportHelper.exportTXT("EstadoAvancePresupuestalEgresosFuenteFinanciamiento", paramters);
 		
 	}
 }
