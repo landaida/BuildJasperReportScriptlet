@@ -4,9 +4,9 @@ import net.sf.jasperreports.engine.JRException;
 public class Main {
 	public static void main(String[] args) throws JRException {
 		HashMap<String, Object> paramters = new HashMap<String, Object>();
-		paramters.put("P_MES", 12);
-		paramters.put("P_SECTOR", 1);
-		paramters.put("P_ANO", 4);
+//		paramters.put("P_MES", 12);
+//		paramters.put("P_SECTOR", 1);
+//		paramters.put("P_ANO", 0);
 
 		
 //		ReportHelper.exportTXT("CapitalTrabajo", paramters);
@@ -18,13 +18,17 @@ public class Main {
 
 		
 		
-		paramters.put("P_DIRE", "030402");
-		ReportHelper.exportTXT("EstadoAvancePresupuestalEgresosFinalidadFuncionSubFuncion", null);
+//		paramters.put("P_DIRE", "030402");
+//		ReportHelper.exportTXT("EstadoAvancePresupuestalEgresosFinalidadFuncionSubFuncion", null);
 		
 		
 		
-//		paramters.put("P_DIRE", "A00100010301010201011");
-//		ReportHelper.exportTXT("EstadoAvancePresupuestalEgresosDgDaFunProgProyFf", paramters);
+
+		paramters.put("P_MES", 1);
+		paramters.put("P_SECTOR", 1);
+		paramters.put("P_ANO", 0);
+		paramters.put("P_DIRE", "A0010001030101020");
+		ReportHelper.exportTXT("EstadoAvancePresupuestalEgresosDgDaFunProgProyFf", paramters);
 		
 		
 //		paramters.put("P_DIRE", "020");

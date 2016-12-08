@@ -42,7 +42,7 @@ public class EstadoAvancePresupuestalEgresosFuenteFinanciamientoScriptlet extend
 	@Override
 	public void afterGroupInit(String groupName) throws JRScriptletException
 	{
-		if (groupName.equals("GROUP_PARTIDA"))
+		if (groupName.equals("GROUP_PARTIDA") && getFieldValue("PARTIDA") != null)
 		{
 			BigDecimal aprobado = BigDecimal.ZERO;
 			BigDecimal padre_aprobado = BigDecimal.ZERO;

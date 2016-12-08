@@ -1,29 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
-<!-- 2016-12-02T14:24:58 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Capital_de_trabajo" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="792" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="94a9e52e-7229-46b2-9151-d67a6d4593c1">
+<!-- 2016-12-08T17:23:49 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Capital_de_trabajo" pageWidth="792" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="792" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="94a9e52e-7229-46b2-9151-d67a6d4593c1">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="gemdb"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<scriptlet name="custom" class="com.gem.sistema.web.scriptlet.EstadoAvancePresupuestalEgresosDgDaFunProgProyFfScriptlet">
 		<scriptletDescription><![CDATA[]]></scriptletDescription>
 	</scriptlet>
-	<parameter name="P_MES" class="java.lang.Integer" isForPrompting="true">
+	<parameter name="P_MES" class="java.lang.Integer">
 		<parameterDescription><![CDATA[]]></parameterDescription>
-		<defaultValueExpression><![CDATA[12]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[/*12*/ 1]]></defaultValueExpression>
 	</parameter>
-	<parameter name="P_SECTOR" class="java.lang.Integer" isForPrompting="true">
+	<parameter name="P_SECTOR" class="java.lang.Integer">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
 	</parameter>
-	<parameter name="P_RESTA_ANO" class="java.lang.Integer" isForPrompting="true">
+	<parameter name="P_RESTA_ANO" class="java.lang.Integer">
 		<parameterDescription><![CDATA[]]></parameterDescription>
-		<defaultValueExpression><![CDATA[4]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[/*4*/ 0]]></defaultValueExpression>
 	</parameter>
-	<parameter name="P_IMG" class="java.lang.String" isForPrompting="true"/>
-	<parameter name="P_DIRE" class="java.lang.String" isForPrompting="true">
+	<parameter name="P_IMG" class="java.lang.String"/>
+	<parameter name="P_DIRE" class="java.lang.String">
 		<parameterDescription><![CDATA[]]></parameterDescription>
-		<defaultValueExpression><![CDATA["A00100010301010201011"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA[/*"A00100010301010201011"*/ "A0010001030101020"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_CAMPO1" class="java.lang.String">
+		<parameterDescription><![CDATA[""]]></parameterDescription>
+	</parameter>
+	<parameter name="P_NOMPRO" class="java.lang.String">
+		<parameterDescription><![CDATA[""]]></parameterDescription>
+	</parameter>
+	<parameter name="P_L1" class="java.lang.String">
+		<parameterDescription><![CDATA[""]]></parameterDescription>
+	</parameter>
+	<parameter name="P_N1" class="java.lang.String">
+		<parameterDescription><![CDATA[""]]></parameterDescription>
+	</parameter>
+	<parameter name="P_L2" class="java.lang.String">
+		<parameterDescription><![CDATA[""]]></parameterDescription>
+	</parameter>
+	<parameter name="P_N2" class="java.lang.String">
+		<parameterDescription><![CDATA[""]]></parameterDescription>
+	</parameter>
+	<parameter name="P_L3" class="java.lang.String">
+		<parameterDescription><![CDATA[""]]></parameterDescription>
+	</parameter>
+	<parameter name="P_N3" class="java.lang.String">
+		<parameterDescription><![CDATA[""]]></parameterDescription>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT 
@@ -231,6 +255,7 @@ LIMIT 2]]>
 		<groupExpression><![CDATA[$F{PARTIDA}]]></groupExpression>
 		<groupHeader>
 			<band height="14">
+				<printWhenExpression><![CDATA[$F{PARTIDA} != null]]></printWhenExpression>
 				<textField>
 					<reportElement positionType="Float" x="0" y="0" width="60" height="14" uuid="43936c32-4637-49e3-9a2b-ce8b90512cc1">
 						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
@@ -323,7 +348,7 @@ LIMIT 2]]>
 				<textElement textAlignment="Center">
 					<font fontName="Consolas"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Dg/Da/Fun/Subfun/Prog/SubProg/Proy/Ff: " + $P{P_DIRE} +", " + $F{NOMPRO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Dg/Da/Fun/Subfun/Prog/SubProg/Proy/Ff: " + $P{P_DIRE} +", " + $P{P_NOMPRO}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="0" y="14" width="792" height="14" uuid="becd8540-68b8-4bf3-9ef1-8bd1457d872c">
@@ -332,7 +357,7 @@ LIMIT 2]]>
 				<textElement textAlignment="Center">
 					<font fontName="Consolas"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{CAMPO1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{P_CAMPO1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement positionType="Float" x="0" y="0" width="792" height="14" uuid="01cd8d8c-7ce3-4c13-aafb-5b06a13a7d07">
@@ -502,7 +527,7 @@ LIMIT 2]]>
 				<textElement textAlignment="Center">
 					<font fontName="Consolas" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{L1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{P_L1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="290" y="46" width="218" height="14" uuid="3f863792-6b3f-46ae-a37b-844ac4a87a9b">
@@ -511,7 +536,7 @@ LIMIT 2]]>
 				<textElement textAlignment="Center">
 					<font fontName="Consolas" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{L2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{P_L2}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="550" y="45" width="218" height="14" uuid="d24117d5-257c-4c80-bb72-f27cf4b847ab">
@@ -520,7 +545,7 @@ LIMIT 2]]>
 				<textElement textAlignment="Center">
 					<font fontName="Consolas" size="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{L3}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{P_L3}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="15" y="70" width="224" height="19" uuid="ac9816a0-dffb-43f6-bfa8-c6ca7292e44e"/>
@@ -578,7 +603,7 @@ LIMIT 2]]>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Consolas" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{N1}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{P_N1}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="290" y="92" width="218" height="14" uuid="a6880ed1-520f-4726-8f11-86b4894c014e">
@@ -594,7 +619,7 @@ LIMIT 2]]>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Consolas" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{N2}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{P_N2}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="550" y="92" width="218" height="14" uuid="c08f5a06-97c5-48e8-8c07-335b42db7950">
@@ -610,12 +635,13 @@ LIMIT 2]]>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Consolas" size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{N3}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$P{P_N3}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="35" y="0" width="197" height="14" uuid="73a7df53-219c-4c7b-aaa2-d6786910230a">
+				<reportElement key="" positionType="Float" x="35" y="0" width="197" height="14" uuid="73a7df53-219c-4c7b-aaa2-d6786910230a">
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<printWhenExpression><![CDATA[$F{PARTIDA} != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Consolas" size="9"/>
@@ -623,64 +649,73 @@ LIMIT 2]]>
 				<text><![CDATA[TOTALES]]></text>
 			</staticText>
 			<textField pattern="#,##0.00">
-				<reportElement positionType="Float" x="720" y="0" width="72" height="14" uuid="747dac67-4740-4e6f-a9af-f04a8935eb82">
+				<reportElement key="" positionType="Float" x="720" y="0" width="72" height="14" uuid="747dac67-4740-4e6f-a9af-f04a8935eb82">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<printWhenExpression><![CDATA[$F{PARTIDA} != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$V{total_porejercer}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement positionType="Float" x="602" y="0" width="58" height="14" uuid="cf31621a-855a-4991-8464-776a89f8629a">
+				<reportElement key="" positionType="Float" x="602" y="0" width="58" height="14" uuid="cf31621a-855a-4991-8464-776a89f8629a">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<printWhenExpression><![CDATA[$F{PARTIDA} != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$V{total_pagado}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement positionType="Float" x="542" y="0" width="60" height="14" uuid="cb80a37f-7a17-422f-8baf-1077641d28e7">
+				<reportElement key="" positionType="Float" x="542" y="0" width="60" height="14" uuid="cb80a37f-7a17-422f-8baf-1077641d28e7">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<printWhenExpression><![CDATA[$F{PARTIDA} != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$V{total_devengado}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement positionType="Float" x="412" y="0" width="60" height="14" uuid="b9d53342-fbdb-4bfb-b570-8680bf04e58e">
+				<reportElement key="" positionType="Float" x="412" y="0" width="60" height="14" uuid="b9d53342-fbdb-4bfb-b570-8680bf04e58e">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<printWhenExpression><![CDATA[$F{PARTIDA} != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$V{total_modificado}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement positionType="Float" x="292" y="0" width="60" height="14" uuid="20f50ebf-13fa-4422-8522-323768b6a1c2">
+				<reportElement key="" positionType="Float" x="292" y="0" width="60" height="14" uuid="20f50ebf-13fa-4422-8522-323768b6a1c2">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<printWhenExpression><![CDATA[$F{PARTIDA} != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$V{total_ampliacion}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement positionType="Float" x="232" y="0" width="60" height="14" uuid="6852148e-b026-4772-98cd-63b0eec8deb2">
+				<reportElement key="" positionType="Float" x="232" y="0" width="60" height="14" uuid="6852148e-b026-4772-98cd-63b0eec8deb2">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<printWhenExpression><![CDATA[$F{PARTIDA} != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$V{total_aprobado}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement positionType="Float" x="352" y="0" width="60" height="14" uuid="140139ee-1922-415c-90fd-1faae97f1458">
+				<reportElement key="" positionType="Float" x="352" y="0" width="60" height="14" uuid="140139ee-1922-415c-90fd-1faae97f1458">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<printWhenExpression><![CDATA[$F{PARTIDA} != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$V{total_reduccion}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement positionType="Float" x="660" y="0" width="60" height="14" uuid="68698af2-e9b4-401b-afbe-006bbcc63ff3">
+				<reportElement key="" positionType="Float" x="660" y="0" width="60" height="14" uuid="68698af2-e9b4-401b-afbe-006bbcc63ff3">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<printWhenExpression><![CDATA[$F{PARTIDA} != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$V{total_ejercido}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement positionType="Float" x="472" y="0" width="70" height="14" uuid="1b107ca6-8e6c-4db3-b75a-51a187382cde">
+				<reportElement key="" positionType="Float" x="472" y="0" width="70" height="14" uuid="1b107ca6-8e6c-4db3-b75a-51a187382cde">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<printWhenExpression><![CDATA[$F{PARTIDA} != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$V{total_comprometido}]]></textFieldExpression>
