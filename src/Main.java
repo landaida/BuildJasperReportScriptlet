@@ -13,10 +13,13 @@ public class Main {
 		
 		
 		
-		paramters.put("P_DIRE", "010301010101041");
+//		paramters.put("P_DIRE", "010301010101041");
 //		ReportHelper.exportTXT("EstadoAvancePresupuestalEgresosFinalidadFuncionProgramaProyectoFf", paramters);
-		ReportHelper.exportTXT("EstadoAvancePresupuestalEgresosFinalidadFuncionSubFuncion", null);
 
+		
+		
+		paramters.put("P_DIRE", "030402");
+		ReportHelper.exportTXT("EstadoAvancePresupuestalEgresosFinalidadFuncionSubFuncion", null);
 		
 		
 		
