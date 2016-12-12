@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
-<!-- 2016-12-09T05:37:41 -->
+<!-- 2016-12-12T19:58:48 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Capital_de_trabajo" pageWidth="792" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="764" leftMargin="14" rightMargin="14" topMargin="0" bottomMargin="0" isFloatColumnFooter="true" uuid="94a9e52e-7229-46b2-9151-d67a6d4593c1">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="gemdb"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -82,7 +82,7 @@
  AND CUENTA.CUENTA<='3399' 
  AND CUENTA.SCTA='' 
  AND CUENTA.NOTCTA=0
- AND CUENTA.IDSECTOR = 1
+ AND CUENTA.IDSECTOR =  $P{P_SECTOR} 
  ORDER BY CUENTA.CUENTA]]>
 	</queryString>
 	<field name="NATCTA" class="java.lang.String"/>
@@ -438,7 +438,6 @@
 				<textElement textAlignment="Right">
 					<paragraph rightIndent="4"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{mes_actual_ejercicio}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
 				<reportElement positionType="Float" x="662" y="0" width="102" height="14" uuid="be8fd738-3a3a-4dba-96b4-9cc44089eaae">
@@ -452,7 +451,7 @@
 					<font fontName="SansSerif"/>
 					<paragraph rightIndent="4"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{total}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{mes_actual}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -473,7 +472,7 @@
 					<font fontName="SansSerif"/>
 					<paragraph rightIndent="4"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{total_general}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{total_mes_actual}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
 				<reportElement key="" positionType="Float" x="458" y="0" width="102" height="50" uuid="cf31621a-855a-4991-8464-776a89f8629a">
@@ -526,7 +525,6 @@
 					<font size="9"/>
 					<paragraph rightIndent="4"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{total_mes_actual_ejercicio}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
 				<reportElement key="" positionType="Float" x="254" y="0" width="102" height="50" uuid="1b107ca6-8e6c-4db3-b75a-51a187382cde">

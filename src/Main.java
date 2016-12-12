@@ -24,15 +24,18 @@ public class Main {
 		
 		
 
-		paramters.put("P_MES", 1);
-		paramters.put("P_SECTOR", 1);
-		paramters.put("P_ANO", 0);
-		paramters.put("P_DIRE", "A0010001030101020");
-		ReportHelper.exportTXT("EstadoAvancePresupuestalEgresosDgDaFunProgProyFf", paramters);
+//		paramters.put("P_MES", 1);
+//		paramters.put("P_SECTOR", 1);
+//		paramters.put("P_ANO", 0);
+//		paramters.put("P_DIRE", "A0010001030101020");
+//		ReportHelper.exportTXT("EstadoAvancePresupuestalEgresosDgDaFunProgProyFf", paramters);
 		
 		
 //		paramters.put("P_DIRE", "020");
 //		ReportHelper.exportTXT("EstadoAvancePresupuestalEgresosFuenteFinanciamiento", paramters);
 		
+		paramters.put("P_MES", 6);
+		paramters.put("P_SECTOR", 1);
+		ReportHelper.exportTXT("AnexoEstadoSituacionFinanciera", paramters);
 	}
 }

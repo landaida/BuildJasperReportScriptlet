@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.2.1.final using JasperReports Library version 6.2.1  -->
-<!-- 2016-12-08T17:23:49 -->
+<!-- 2016-12-12T20:00:06 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Capital_de_trabajo" pageWidth="792" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="792" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="94a9e52e-7229-46b2-9151-d67a6d4593c1">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="gemdb"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -86,16 +86,16 @@ AND PASO.CLAVE = XCATPRO.CLVDEP
 AND PASO.PROGRAMA = XCATPRO.CLVFUN||XCATPRO.CLVFIN
 AND PASO.IDSECTOR = NATGAS.IDSECTOR
 AND PASO.IDSECTOR = $P{P_SECTOR}
-AND PASO.IDSECTOR = FIRMAS.ID
+AND PASO.IDSECTOR = FIRMAS.IDSECTOR
 
-AND SUBSTR(PASO.PROGRAMA,1,13) = SUBSTR($P{P_DIRE},7,13)
-AND SUBSTR(PASO.CLAVE,1,6) = SUBSTR($P{P_DIRE},1,6)
+AND SUBSTR(PASO.CLAVE,1,6) =     SUBSTR('A00100010301010201',1,6)
+AND SUBSTR(PASO.PROGRAMA,1,12) = SUBSTR('A00100010301010201',7,12)
 
 AND NATGAS.FECCAP BETWEEN  DATE(TIMESTAMP_FORMAT('01-01-'|| (YEAR(CURRENT_DATE)- $P{P_RESTA_ANO} ),'DD-MM-YYYY'))
 AND DATE(TIMESTAMP_FORMAT(DAY(LAST_DAY(YEAR(CURRENT_DATE)||'-'|| $P{P_MES} ||'-01'))|| $P{P_MES} ||'-'|| (YEAR(CURRENT_DATE)-$P{P_RESTA_ANO} ),'DD-MM-YYYY'))
 --AND PASO.PARTIDA IN (1100, 1000)
 GROUP BY PASO.PARTIDA
-LIMIT 2]]>
+--LIMIT 2]]>
 	</queryString>
 	<field name="PARTIDA" class="java.lang.String"/>
 	<field name="NOMPRO" class="java.lang.String"/>

@@ -39,73 +39,75 @@ import net.sf.jasperreports.engine.JRScriptletException;
  */
 public class EstadoVariacionHaciendaPublicaPatrimonioScriptlet extends JRDefaultScriptlet
 {
-	@Override
-	public void afterGroupInit(String groupName) throws JRScriptletException
-	{
-	}
+	private static enum TipoMes{MES_ANTERIOR, MES_ACTUAL};
+	
 	@Override
 	public void afterDetailEval() throws JRScriptletException
 	{
 		if (getFieldValue("CUENTA") != null)
 		{
-			BigDecimal mesAnterior = BigDecimal.ZERO;
-			BigDecimal mesActual = BigDecimal.ZERO;
-			BigDecimal mesActualEjercicio = BigDecimal.ZERO;
-			BigDecimal total = BigDecimal.ZERO;
-			
-			for (int i = 1; i <= 12; i++) {
-				if(getFieldValue("NATCTA").equals("D")){
-					mesAnterior = fieldValueBigDecimal("SALINI");
-					if(i<=(Integer)getParameterValue("P_MES")){
-						mesAnterior = mesAnterior.add(fieldValueBigDecimal("CARGOS_"+i).subtract(fieldValueBigDecimal("ABONOS_"+i)));
-					}
+			calcularMes(TipoMes.MES_ANTERIOR);
+			calcularMes(TipoMes.MES_ACTUAL);
+		}
+	}
+	
+	
+	private void calcularMes(TipoMes tipo)  throws JRScriptletException {
+		BigDecimal valorMes = BigDecimal.ZERO;
+		int P_MES = (Integer)getParameterValue("P_MES");
+		
+		if(getFieldValue("NATCTA").equals("D")){
+			valorMes = fieldValueBigDecimal("SALINI");
+			for (int i = 1; tipo.equals(TipoMes.MES_ACTUAL) ? i <= P_MES : i < P_MES; i++) {
+				valorMes = valorMes.add(fieldValueBigDecimal("CARGOS_"+i).subtract(fieldValueBigDecimal("ABONOS_"+i)));
+			}
+		}else{
+			valorMes = fieldValueBigDecimal("SALINI");
+			for (int i = 1; tipo.equals(TipoMes.MES_ACTUAL) ? i <= P_MES : i < P_MES; i++) {
+				if(getFieldValue("CUENTA").equals("1115") || getFieldValue("CUENTA").equals("1162")){
+					valorMes = valorMes.add(fieldValueBigDecimal("CARGOS_"+i).subtract(fieldValueBigDecimal("ABONOS_"+i)));
 				}else{
-					mesAnterior = fieldValueBigDecimal("SALINI");
-					if(i<=(Integer)getParameterValue("P_MES")){
-						if(getFieldValue("CUENTA").equals("1115") || getFieldValue("CUENTA").equals("1162")){
-							mesAnterior = mesAnterior.add(fieldValueBigDecimal("CARGOS_"+i).subtract(fieldValueBigDecimal("ABONOS_"+i)));
-						}else{
-							mesAnterior = mesAnterior.subtract(fieldValueBigDecimal("CARGOS_"+i).add(fieldValueBigDecimal("ABONOS_"+i)));
-						}
-					}
+					valorMes = valorMes.subtract(fieldValueBigDecimal("CARGOS_"+i).add(fieldValueBigDecimal("ABONOS_"+i)));
 				}
-				if(fieldValueInteger("CUENTA").equals(3211)){
-					BigDecimal cuenta4 = BigDecimal.ZERO;
-					BigDecimal cuenta5 = BigDecimal.ZERO;
-					
-					if(fieldValueInteger("CUENTA") >= 4100  
-							&& fieldValueInteger("CUENTA") <= 4399 
-							&& !getFieldValue("CUENTA").toString().substring(3, 2).equals("0")){
-						
-						cuenta4.add(fieldValueBigDecimal("SALINI"));
-						if(i<=(Integer)getParameterValue("P_MES")){
-							cuenta4.add(fieldValueBigDecimal("ABONOS_"+i).subtract(fieldValueBigDecimal("CARGOS_"+i)));
-						}
-					}
-					if(getFieldValue("CUENTA").equals("5100")
-							|| getFieldValue("CUENTA").equals("5200")
-							|| getFieldValue("CUENTA").equals("5300")
-							|| getFieldValue("CUENTA").equals("5400")
-							|| getFieldValue("CUENTA").equals("5500")
-							|| getFieldValue("CUENTA").equals("5600")
-							|| getFieldValue("CUENTA").equals("5700")
-							){
-						cuenta5.add(fieldValueBigDecimal("SALINI"));
-						if(i<=(Integer)getParameterValue("P_MES")){
-							cuenta5.subtract(fieldValueBigDecimal("ABONOS_"+i).add(fieldValueBigDecimal("CARGOS_"+i)));
-						}
-					}
-					mesAnterior = cuenta4.subtract(cuenta5);
+				
+			}
+		}
+		if(fieldValueInteger("CUENTA").equals(3211)){
+			BigDecimal cuenta4 = BigDecimal.ZERO;
+			BigDecimal cuenta5 = BigDecimal.ZERO;
+			
+			if(fieldValueInteger("CUENTA") >= 4100  
+					&& fieldValueInteger("CUENTA") <= 4399 
+					&& !getFieldValue("CUENTA").toString().substring(3, 2).equals("0")){
+				
+				cuenta4.add(fieldValueBigDecimal("SALINI"));
+				for (int i = 1; tipo.equals(TipoMes.MES_ACTUAL) ? i <= P_MES : i < P_MES; i++) {
+					cuenta4.add(fieldValueBigDecimal("ABONOS_"+i).subtract(fieldValueBigDecimal("CARGOS_"+i)));
 				}
 			}
-			
-			//making group fields
-			setVariableValue("mes_anterior", mesAnterior);
-
-			//making summaries
-			setVariableValue("total_mes_anterior", variableValueBigDecimal("total_mes_anterior").add(mesAnterior));
-		
+			if(getFieldValue("CUENTA").equals("5100")
+					|| getFieldValue("CUENTA").equals("5200")
+					|| getFieldValue("CUENTA").equals("5300")
+					|| getFieldValue("CUENTA").equals("5400")
+					|| getFieldValue("CUENTA").equals("5500")
+					|| getFieldValue("CUENTA").equals("5600")
+					|| getFieldValue("CUENTA").equals("5700")
+					){
+				cuenta5.add(fieldValueBigDecimal("SALINI"));
+				for (int i = 1; tipo.equals(TipoMes.MES_ACTUAL) ? i <= P_MES : i < P_MES; i++) {
+					cuenta5.subtract(fieldValueBigDecimal("ABONOS_"+i).add(fieldValueBigDecimal("CARGOS_"+i)));
+				}
+			}
+			valorMes = cuenta4.subtract(cuenta5);
 		}
+	
+		String variableName = tipo.equals(TipoMes.MES_ACTUAL) ? "actual" : "anterior";
+		
+		//making group fields
+		setVariableValue("mes_"+variableName, valorMes);
+
+		//making summaries
+		setVariableValue("total_mes_"+variableName, variableValueBigDecimal("total_mes_"+variableName).add(valorMes));
 	}
 	
 	private BigDecimal variableValueBigDecimal(String variableName){
